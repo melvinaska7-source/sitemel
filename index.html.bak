@@ -851,6 +851,13 @@
         version: "1.21.x x 1.16.5",
         description: "Розовый, но зловещий ресурспак, который не оставит вас без кила.",
         download: "https://workupload.com/file/3MgkMY8Adqk"
+      },
+      {
+        name: "BURGUNDY RESOURCEPACK",
+        image: "images/pack6.jpg",
+        version: "1.21.x x 1.16.5",
+        description: "Темный, приятный на глаз ресурспак",
+        download: "https://workupload.com/file/JxxnMfzVKtS"
       }
     ];
 
