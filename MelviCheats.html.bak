@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#05070d" />
+  <title>MelviCheats — магазин Minecraft</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #03050a;
+      --bg-2: #07101d;
+      --glass: rgba(13, 23, 39, .62);
+      --glass-strong: rgba(10, 20, 36, .78);
+      --line: rgba(91, 169, 255, .22);
+      --line-strong: rgba(72, 158, 255, .52);
+      --blue: #319cff;
+      --blue-2: #1267ff;
+      --cyan: #54d7ff;
+      --text: #f4f8ff;
+      --muted: #9baabd;
+      --radius: 28px;
+      --shadow: 0 25px 90px rgba(0, 55, 140, .18);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+    body {
+      font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -25%;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(0, 119, 255, .20), transparent 25%),
+        radial-gradient(circle at 84% 20%, rgba(27, 92, 255, .14), transparent 28%),
+        radial-gradient(circle at 55% 90%, rgba(0, 195, 255, .10), transparent 30%);
+      filter: blur(45px);
+      animation: ambient 12s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    @keyframes ambient {
+      from { transform: translate3d(-2%, -1%, 0) scale(1); }
+      to { transform: translate3d(2%, 1%, 0) scale(1.05); }
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .brand {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(5, 12, 23, .52);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      box-shadow: 0 12px 50px rgba(0,0,0,.22);
+      font-family: "Unbounded", sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -.04em;
+    }
+
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 18px var(--blue);
+    }
+
+    .viewport {
+      width: 100%;
+      height: 100vh;
+      min-height: 720px;
+      overflow: hidden;
+    }
+
+    .pages {
+      height: 100%;
+      display: flex;
+      width: 400%;
+      transform: translateX(0);
+      transition: transform .78s cubic-bezier(.77, 0, .18, 1);
+      will-change: transform;
+    }
+
+    .page {
+      position: relative;
+      width: 25%;
+      min-height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 130px 7vw 110px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(80,160,255,.4) transparent;
+    }
+
+    .page-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    /* HOME */
+    .hero {
+      min-height: 650px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-orb {
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      background: rgba(22, 123, 255, .13);
+      filter: blur(85px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 9px 14px;
+      border: 1px solid rgba(75,160,255,.23);
+      background: rgba(23, 58, 103, .22);
+      border-radius: 999px;
+      color: #8dcaff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(18px);
+    }
+
+    .eyebrow span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #46b5ff;
+      box-shadow: 0 0 14px #46b5ff;
+    }
+
+    .hero h1, .catalog-head h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0;
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(40px, 6vw, 82px);
+      line-height: 1.05;
+      letter-spacing: -.065em;
+      font-weight: 800;
+      text-wrap: balance;
+    }
+
+    .gradient-text {
+      background: linear-gradient(105deg, #ffffff 10%, #bfe5ff 48%, #329cff 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 55px rgba(40,145,255,.16);
+    }
+
+    .hero-description {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 27px auto 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.5vw, 18px);
+      line-height: 1.75;
+    }
+
+    .actions {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      min-width: 160px;
+      padding: 15px 22px;
+      border-radius: 16px;
+      color: white;
+      font-weight: 800;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(0) scale(.98); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #198dff, #1556e8);
+      border: 1px solid rgba(126,205,255,.6);
+      box-shadow: 0 14px 40px rgba(21, 110, 255, .26), inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .btn-dark {
+      background: rgba(3, 7, 13, .74);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+      backdrop-filter: blur(18px);
+    }
+
+    .quote {
+      position: relative;
+      margin: 65px auto 0;
+      max-width: 860px;
+      padding: 34px 42px 35px 50px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, rgba(16,30,50,.70), rgba(6,12,22,.52));
+      border: 1px solid rgba(92,172,255,.18);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.05);
+      backdrop-filter: blur(24px) saturate(145%);
+      -webkit-backdrop-filter: blur(24px) saturate(145%);
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .quote::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(#54d7ff, #1b73ff);
+      box-shadow: 0 0 25px #228cff;
+    }
+
+    .quote-mark {
+      font-family: Georgia, serif;
+      font-size: 74px;
+      line-height: .55;
+      color: #3ba9ff;
+      opacity: .75;
+      margin-bottom: 15px;
+    }
+
+    .quote p {
+      margin: 0;
+      color: #d9e8f8;
+      font-size: 17px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 13px;
+      color: #6e89a8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* CATALOG & CONFIGS & PACKS */
+    .catalog-head {
+      text-align: center;
+      margin: 15px auto 50px;
+    }
+
+    .catalog-head p {
+      margin: 20px auto 0;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .products {
+      display: grid;
+      gap: 20px;
+    }
+
+    .product {
+      position: relative;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 25px;
+      padding: 21px;
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(28,119,255,.10), transparent 35%),
+        linear-gradient(135deg, rgba(15,28,47,.74), rgba(5,11,20,.68));
+      border: 1px solid rgba(91,169,255,.18);
+      box-shadow: 0 20px 70px rgba(0, 20, 65, .16), inset 0 1px 0 rgba(255,255,255,.045);
+      backdrop-filter: blur(25px) saturate(145%);
+      -webkit-backdrop-filter: blur(25px) saturate(145%);
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+      border-color: rgba(74,161,255,.4);
+      box-shadow: 0 28px 85px rgba(0, 68, 160, .23), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .product-image-wrap {
+      min-width: 0;
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: block;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(circle at 35% 25%, rgba(63,169,255,.45), transparent 30%),
+        linear-gradient(145deg, #0c2a4d, #050914 70%);
+      box-shadow: inset 0 0 35px rgba(0,0,0,.25);
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      min-width: 0;
+      padding: 9px 10px;
+      border-radius: 11px;
+      border: 1px solid rgba(91,169,255,.18);
+      background: rgba(20,55,91,.30);
+      color: #acd7ff;
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 800;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .chip strong {
+      color: #fff;
+      display: block;
+      font-size: 9px;
+      opacity: .48;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .product-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 5px 2px 2px;
+    }
+
+    .product-title {
+      margin: 0;
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(17px, 2vw, 24px);
+      letter-spacing: -.045em;
+      font-weight: 700;
+    }
+
+    .product-tag {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 11px;
+      padding: 7px 10px;
+      border-radius: 9px;
+      color: #7bc7ff;
+      background: rgba(27,119,255,.10);
+      border: 1px solid rgba(71,155,255,.17);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .product-description {
+      margin: 17px 0 0;
+      color: #aab8ca;
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 680px;
+    }
+
+    .download {
+      margin-top: auto;
+      padding-top: 22px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .download .btn {
+      min-width: 145px;
+      padding: 12px 18px;
+      border-radius: 13px;
+      font-size: 13px;
+    }
+
+    /* NAV */
+    .page-nav {
+      position: fixed;
+      z-index: 60;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      padding: 6px;
+      border: 1px solid rgba(100,174,255,.18);
+      border-radius: 999px;
+      background: rgba(4, 10, 18, .70);
+      backdrop-filter: blur(25px) saturate(150%);
+      -webkit-backdrop-filter: blur(25px) saturate(150%);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    .nav-item {
+      position: relative;
+      border: 0;
+      background: transparent;
+      color: #74869d;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 10px 17px;
+      font-size: 11px;
+      font-weight: 800;
+      transition: .3s ease;
+    }
+
+    .nav-item.active {
+      color: white;
+      background: linear-gradient(135deg, rgba(39,143,255,.35), rgba(30,76,205,.22));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+    }
+
+    .nav-item:hover { color: #dcecff; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .page.active .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page.active .reveal:nth-child(2) { transition-delay: .08s; }
+    .page.active .reveal:nth-child(3) { transition-delay: .16s; }
+    .page.active .reveal:nth-child(4) { transition-delay: .24s; }
+
+    @media (max-width: 760px) {
+      .header { padding: 16px; }
+      .brand { font-size: 11px; padding: 9px 12px; }
+
+      .viewport { min-height: 100vh; }
+      .page { padding: 105px 17px 100px; }
+
+      .hero { min-height: 650px; }
+      .hero h1, .catalog-head h1 { font-size: clamp(33px, 10vw, 54px); }
+
+      .hero-description { font-size: 14px; line-height: 1.65; }
+      .actions { width: 100%; }
+      .actions .btn { width: min(100%, 330px); }
+
+      .quote { padding: 28px 25px 28px 30px; }
+      .quote p { font-size: 14px; }
+
+      .product {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 15px;
+      }
+
+      .product-image {
+        aspect-ratio: 16 / 9;
+      }
+
+      .download { padding-top: 18px; }
+      .download .btn { width: 100%; }
+
+      .nav-item { padding: 9px 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pages, .btn, .product, .reveal { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header class="header">
+    <a class="brand" href="#" onclick="goToPage(0); return false;" aria-label="MelviCheats — Главная">
+      <span class="brand-dot"></span>
+      MelviCheats
+    </a>
+  </header>
+
+  <main class="viewport">
+    <div class="pages" id="pages">
+
+      <!-- ===== ГЛАВНАЯ ===== -->
+      <section class="page active" id="home">
+        <div class="page-inner">
+          <div class="hero">
+            <div class="hero-orb"></div>
+
+            <div class="eyebrow reveal">
+              <span></span>
+              Minecraft cheat store
+            </div>
+
+            <h1 class="reveal">
+              <span class="gradient-text">MelviCheats</span><br>
+              — Начни побеждать<br>прямо сейчас!
+            </h1>
+
+            <p class="hero-description reveal">
+              Огромнейший список кряков и оригинальных читов на любой вкус —
+              выбери свой инструмент и получи максимум возможностей.
+            </p>
+
+            <div class="actions reveal">
+              <button class="btn btn-primary" onclick="goToPage(1)">
+                В каталог <span>→</span>
+              </button>
+              <a class="btn btn-dark" href="https://t.me/MelviCheats" target="_blank" rel="noopener">
+                Telegram
+              </a>
+            </div>
+          </div>
+
+          <div class="quote reveal">
+            <div class="quote-mark">“</div>
+            <p>«Умей играть без читов — чтобы доминировать. Умей играть с читами — чтобы доминировать над доминирующими.»</p>
+            <small>MelviCheats</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== КАТАЛОГ ===== -->
+      <section class="page" id="catalog">
+        <div class="page-inner">
+          <div class="catalog-head">
+            <div class="eyebrow reveal"><span></span> Каталог</div>
+            <h1 class="reveal"><span class="gradient-text">Каталог</span></h1>
+            <p class="reveal">Выбирай нужный клиент, мод или чит — всё в одном месте.</p>
+          </div>
+          <div class="products" id="products"></div>
+        </div>
+      </section>
+
+      <!-- ===== КОНФИГИ ===== -->
+      <section class="page" id="configs">
+        <div class="page-inner">
+          <div class="catalog-head">
+            <div class="eyebrow reveal"><span></span> Конфиги</div>
+            <h1 class="reveal"><span class="gradient-text">Конфиги</span></h1>
+            <p class="reveal">Готовые настройки для быстрого старта.</p>
+          </div>
+          <div class="products" id="configs-list"></div>
+        </div>
+      </section>
+
+      <!-- ===== РЕСУРСПАКИ ===== -->
+      <section class="page" id="resourcepacks">
+        <div class="page-inner">
+          <div class="catalog-head">
+            <div class="eyebrow reveal"><span></span> Ресурспаки</div>
+            <h1 class="reveal"><span class="gradient-text">Ресурспаки</span></h1>
+            <p class="reveal">Подборка ресурспаков для Minecraft.</p>
+          </div>
+          <div class="products" id="packs-list"></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <nav class="page-nav" aria-label="Навигация по страницам">
+    <button class="nav-item active" data-page="0" onclick="goToPage(0)">Главная</button>
+    <button class="nav-item" data-page="1" onclick="goToPage(1)">Каталог</button>
+    <button class="nav-item" data-page="2" onclick="goToPage(2)">Конфиги</button>
+    <button class="nav-item" data-page="3" onclick="goToPage(3)">Ресурспаки</button>
+  </nav>
+
+  <script>
+    // ----- ДАННЫЕ -----
+    const PRODUCTS = [
+      {
+        name: "WILD",
+        image: "images/wild.jpg",
+        version: "1.21.8",
+        type: "Кряк",
+        badge: "Превосходство в визуале и обход, который не подведёт.",
+        description: "Чит, который рекомендуют профи. Полная незаметность для античитов и визуальный контроль, дающий абсолютное преимущество.",
+        download: "https://workupload.com/file/zT5y7d4myQX"
+      },
+      {
+        name: "DELTA",
+        image: "images/delta.jpg",
+        version: "1.21.4",
+        type: "Кряк",
+        badge: "Бустит всё — от PvP до PvE. Проверено ещё с 1.16.",
+        description: "Легендарный софт, доказавший свою эффективность сквозь версии. Минимум лишних визуалов, максимум реального буста в любых замесах.",
+        download: "https://workupload.com/file/JJ7gUQrT4h5"
+      },
+      {
+        name: "ROCKSTAR",
+        image: "images/rs.jpg",
+        version: "1.21.4",
+        type: "Кряк",
+        badge: "Рок-звезда арены: ослепляет стилем, оглушает ударами.",
+        description: "Сочный визуал, который приковывает взгляды, и мощный PvP-функционал, не оставляющий соперникам шансов. Твой главный перфоманс в игре, но не силен в обходах холиворлд.",
+        download: "https://workupload.com/file/ns7fqLUacjt"
+      },
+      {
+        name: "ZENITH",
+        image: "images/zenith.jpg",
+        version: "1.21.4",
+        type: "Кряк",
+        badge: "Зенит: Космический FPS и визуалы, от которых текут слёзы.",
+        description: "Идеальный баланс для разгона FunTime. Код от DeepSeek, сливы на PasterEnd, но выдаёт такой фреймрейт и визуал, что админы от зависти плачут.",
+        download: "https://workupload.com/file/huuTfJr4Dz8"
+      },
+
+      {
+        name: "LUXE",
+        image: "images/luxe.jpg",
+        version: "1.21.11",
+        type: "Оригинал",
+        badge: "Дорогой стиль без единого рубля.",
+        description: "Простой, стильный и абсолютно бесплатный. Без громких понтов и перегруженных обходов — только идеальный эстетичный клиент, в котором приятно находиться каждый день.",
+        download: "https://workupload.com/file/xRfMNFCwXFT"
+      },
+      {
+        name: "NURSULTAN",
+        image: "images/nurik.jpg",
+        version: "1.21.11",
+        type: "Кряк",
+        badge: "Нурсултан пал. Сказки про «лучшую защиту» окончены.",
+        description: "Делать обнову с 1.16 на 1.21 больше полугода, провалить продажи и отлететь в кряк — это надо уметь. Зато в сурсах остались красивый GUI, сочные визуалы и неплохая киллаура.",
+        download: "https://workupload.com/file/eWzQrUnZe2x"
+      },
+      {
+        name: "VELKA",
+        image: "images/velka.jpg",
+        version: "1.21.4",
+        type: "Кряк",
+        badge: "VELKA — лучший PvE-клиент, который не сберегла защита.",
+        description: "1ККК с нуля всего за один час. Полная автоматизация: AutoBuy, AutoWarden, AutoEnd и AppleFarm для легчайшего баланса.",
+        download: "https://workupload.com/file/ZqydgeUMZAM"
+      },
+      {
+        name: "WEXSIDE",
+        image: "images/wexside.jpg",
+        version: "1.21.11",
+        type: "Кряк",
+        badge: "Чистый PvP-убийца без контрактов и защиты.",
+        description: "Поссорился с Флюгером, лишился «лучшей» защиты за 48 часов, но остался абсолютным топом для дуэлей. Скромный визуал, zero PvE, но бешеный урон по игрокам.",
+        download: "https://workupload.com/file/tnVYyxQfCH6"
+      },
+      {
+        name: "EXPENSIVE",
+        image: "images/exp.jpg",
+        version: "1.21.11",
+        type: "Кряк",
+        badge: "Премиум-класс, который стоит каждого рубля.",
+        description: "Топовый софт без компромиссов. Мощнейшая киллаура, сочнейшие визуалы и базовый функционал для фарма — всё, за что любят настоящий дорогой продукт.",
+        download: "https://workupload.com/file/2GChgL94YmE"
+      },
+      {
+        name: "SYSTEM",
+        image: "images/system.jpg",
+        version: "1.21.4",
+        type: "Кряк",
+        badge: "Приятен для глаз, смертоносен в бою.",
+        description: "Клиент с идеальным дизайном и сочной картинкой, за которой скрывается беспощадная киллаура. Эстетика и мощь в одном флаконе.",
+        download: "https://workupload.com/file/XfsmjjdgjLa"
+      }
+    ];
+
+    const CONFIGS = [
+      {
+        name: "Конфиг Флюгера на Delta Client",
+        image: "images/fluga.jpg",
+        version: "1.21.4",
+        description: "Конфиг ютубера, который по слухам «бустит», не стоит ли проверить?",
+        download: "https://workupload.com/file/mFtA7J6bE8u"
+      },
+      {
+        name: "Конфиг Bro9I для Wild, Nursultan, Wexside Client",
+        image: "images/bro9i.jpg",
+        version: "1.21.4; 1.16.5; 1.21.11",
+        description: "Официальный конфиг, купленый с официального фанпея брои",
+        download: "https://workupload.com/archive/QMSVEcFbGC"
+      },
+      {
+        name: "Конфиг для сервера SpookyT!me под Luxe Client 1.21.11",
+        image: "images/luxe.jpg",
+        version: "1.21.11",
+        description: "Конфиг от создателя Luxe Client",
+        download: "https://workupload.com/file/P976SdjfBWP"
+      },
+      {
+        name: "FunT1me конфиг на Delta Client",
+        image: "images/cl.jpg",
+        version: "1.21.11",
+        description: "Конфиг от владельца тгк "CheatsLaboratory под Delta Client",
+        download: "https://workupload.com/file/kyXZ3qmvtka"
+      }
+    ];
+
+    const PACKS = [
+      {
+        name: "Мой ресурспак",
+        image: "images/pack1.jpg",
+        version: "1.21.x",
+        description: "Описание ресурспака.",
+        download: "#"
+      }
+    ];
+
+    // ----- РЕНДЕР -----
+    function escapeHTML(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderProducts() {
+      const target = document.getElementById("products");
+      target.innerHTML = PRODUCTS.map((p, i) => `
+        <article class="product reveal">
+          <div class="product-image-wrap">
+            <img class="product-image" src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="${i > 1 ? "lazy" : "eager"}">
+            <div class="chips">
+              <div class="chip"><strong>Версия</strong>${escapeHTML(p.version)}</div>
+              <div class="chip"><strong>Тип</strong>${escapeHTML(p.type)}</div>
+            </div>
+          </div>
+          <div class="product-content">
+            <h2 class="product-title">${escapeHTML(p.name)}</h2>
+            <div class="product-tag">${escapeHTML(p.badge)}</div>
+            <p class="product-description">${escapeHTML(p.description)}</p>
+            <div class="download">
+              <a class="btn btn-primary" href="${escapeHTML(p.download)}" target="_blank" rel="noopener">Скачать <span>↓</span></a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderSimple(list, targetId) {
+      const target = document.getElementById(targetId);
+      target.innerHTML = list.map(item => `
+        <article class="product simple-card">
+          <div class="product-image-wrap">
+            <img class="product-image" src="${item.image}" alt="${item.name}" loading="lazy">
+          </div>
+          <div class="product-content">
+            <h2 class="product-title">${item.name}</h2>
+            <p class="product-description">${item.description}</p>
+            <div class="download">
+              <a class="btn btn-primary" href="${item.download}" target="_blank" rel="noopener">Скачать <span>↓</span></a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    renderProducts();
+    renderSimple(CONFIGS, "configs-list");
+    renderSimple(PACKS, "packs-list");
+
+    // ----- НАВИГАЦИЯ -----
+    const TOTAL_PAGES = 4;
+    let currentPage = 0;
+    const pagesContainer = document.getElementById("pages");
+    const pageElements = document.querySelectorAll(".page");
+    const navButtons = document.querySelectorAll(".nav-item");
+
+    function goToPage(page) {
+      currentPage = Math.max(0, Math.min(TOTAL_PAGES - 1, page));
+      pagesContainer.style.transform = `translateX(-${currentPage * 25}%)`;
+
+      pageElements.forEach((el, i) => {
+        el.classList.toggle("active", i === currentPage);
+      });
+
+      navButtons.forEach((btn, i) => {
+        btn.classList.toggle("active", i === currentPage);
+      });
+
+      // прокрутка вверх
+      pageElements[currentPage].scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // колесо мыши
+    let wheelLock = false;
+    window.addEventListener("wheel", (e) => {
+      if (Math.abs(e.deltaY) < 12 || wheelLock) return;
+      wheelLock = true;
+      goToPage(currentPage + (e.deltaY > 0 ? 1 : -1));
+      setTimeout(() => wheelLock = false, 850);
+    }, { passive: true });
+
+    // тач-свайп
+    let touchStartX = 0, touchStartY = 0;
+    window.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+        goToPage(currentPage + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    // клавиши
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "PageDown") goToPage(currentPage + 1);
+      if (e.key === "ArrowLeft" || e.key === "PageUp") goToPage(currentPage - 1);
+    });
+  </script>
+</body>
+</html>
