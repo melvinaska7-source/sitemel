@@ -825,13 +825,6 @@
         version: "1.21.x",
         description: "Официальный ресурспак ютубера Броя (Bro9I), проверено временем с 1.16",
         download: "https://workupload.com/archive/wfUx64RMRq"
-      },
-      {
-        name: "PINK RESOURCEPACK",
-        image: "images/pack5.jpg",
-        version: "1.21.x x 1.16.5",
-        description: "Розовый, но зловещий ресурспак, который не оставит вас без кила.",
-        download: "https://workupload.com/file/3MgkMY8Adqk"
       }
     ];
 
