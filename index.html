@@ -193,17 +193,22 @@
       box-shadow: 0 0 14px #46b5ff;
     }
 
-    .hero h1, .catalog-head h1 {
+    .hero h1, .catalog-head h1, .section-title {
       position: relative;
       z-index: 1;
       max-width: 1000px;
       margin: 0;
       font-family: "Unbounded", sans-serif;
-      font-size: clamp(40px, 6vw, 82px);
+      font-size: clamp(32px, 5vw, 64px);
       line-height: 1.05;
-      letter-spacing: -.065em;
+      letter-spacing: -.05em;
       font-weight: 800;
       text-wrap: balance;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 82px);
+      letter-spacing: -.065em;
     }
 
     .gradient-text {
@@ -316,6 +321,105 @@
       font-weight: 800;
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    /* TUTORIALS & FAQ SECTIONS */
+    .tutorials-section, .faq-section {
+      margin-top: 90px;
+      text-align: left;
+    }
+
+    .tutorials-header {
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .tutorials-grid, .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .tutorial-card, .faq-card {
+      position: relative;
+      padding: 26px;
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(28,119,255,.10), transparent 40%),
+        linear-gradient(135deg, rgba(15,28,47,.74), rgba(5,11,20,.68));
+      border: 1px solid rgba(91,169,255,.18);
+      box-shadow: 0 20px 70px rgba(0, 20, 65, .16), inset 0 1px 0 rgba(255,255,255,.045);
+      backdrop-filter: blur(25px) saturate(145%);
+      -webkit-backdrop-filter: blur(25px) saturate(145%);
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .tutorial-card:hover, .faq-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(74,161,255,.4);
+      box-shadow: 0 28px 85px rgba(0, 68, 160, .23), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .tutorial-title, .faq-card h3 {
+      margin: 0 0 16px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+      letter-spacing: -.03em;
+    }
+
+    .faq-card h3 {
+      color: #54d7ff;
+      margin-bottom: 10px;
+    }
+
+    .faq-card p {
+      margin: 0;
+      color: #aab8ca;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .tutorial-steps {
+      margin: 0;
+      padding-left: 20px;
+      color: #aab8ca;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .tutorial-steps li {
+      margin-bottom: 8px;
+    }
+
+    .tutorial-steps li:last-child {
+      margin-bottom: 0;
+    }
+
+    .tutorial-example {
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 14px;
+      background: rgba(3, 8, 18, .6);
+      border: 1px solid rgba(91, 169, 255, .15);
+      font-family: monospace, monospace;
+      font-size: 12px;
+      color: #8dcaff;
+      word-break: break-all;
+    }
+
+    .tutorial-example strong {
+      display: block;
+      color: #54d7ff;
+      font-family: "Manrope", sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 4px;
     }
 
     /* CATALOG & CONFIGS & PACKS */
@@ -524,7 +628,7 @@
       .page { padding: 105px 17px 100px; }
 
       .hero { min-height: 650px; }
-      .hero h1, .catalog-head h1 { font-size: clamp(33px, 10vw, 54px); }
+      .hero h1, .catalog-head h1, .section-title { font-size: clamp(33px, 10vw, 54px); }
 
       .hero-description { font-size: 14px; line-height: 1.65; }
       .actions { width: 100%; }
@@ -532,6 +636,9 @@
 
       .quote { padding: 28px 25px 28px 30px; }
       .quote p { font-size: 14px; }
+
+      .tutorials-section, .faq-section { margin-top: 60px; }
+      .tutorials-grid, .faq-grid { grid-template-columns: 1fr; }
 
       .product {
         grid-template-columns: 1fr;
@@ -604,6 +711,91 @@
             <p>«Умей играть без читов — чтобы доминировать. Умей играть с читами — чтобы доминировать над доминирующими.»</p>
             <small>MelviCheats</small>
           </div>
+
+          <!-- ===== БЛОК ТУТОРИАЛЫ ===== -->
+          <div class="tutorials-section reveal">
+            <div class="tutorials-header">
+              <div class="eyebrow"><span></span> База знаний</div>
+              <h2 class="section-title"><span class="gradient-text">Туториалы</span></h2>
+            </div>
+
+            <div class="tutorials-grid">
+              <div class="tutorial-card">
+                <h3 class="tutorial-title">Как загрузить конфиг?</h3>
+                <ol class="tutorial-steps">
+                  <li>Открой папку .minecraft</li>
+                  <li>Открой нужную версию</li>
+                  <li>Найди папку с названием софта</li>
+                  <li>Найди папку Custom или Configs</li>
+                  <li>Готово! Перенеси туда нужный кфг и всё!</li>
+                </ol>
+                <div class="tutorial-example">
+                  <strong>Пример:</strong>
+                  Переношу конфиг mel.json в чит Zenith:<br>
+                  <code>.minecraft/versions/1.21.4/Zenith/configs/</code>
+                </div>
+              </div>
+              <div class="tutorial-card">
+                <h3 class="tutorial-title">Как ставить метки?</h3>
+                <ol class="tutorial-steps">
+                  <li>Открой чат</li>
+                  <li>Пропиши <code>.way add Название x y z</code> (xyz - координаты)</li>
+                  <li>Чтобы удалить - <code>.way remove Название</code></li>
+                </ol>
+              </div>
+
+              <div class="tutorial-card">
+                <h3 class="tutorial-title">Как забиндить функцию/очистить бинд?</h3>
+                <ol class="tutorial-steps">
+                  <li>Открой чат игры</li>
+                  <li>Пропиши <code>.bind add [название_функции] [клавиша] (или чтобы очистить .bind clear) </code></li>
+                  <li>Пример: <code>.bind add Killaura R</code></li>
+                </ol>
+              </div>
+
+              <div class="tutorial-card">
+                <h3 class="tutorial-title">Как установить ресурспак?</h3>
+                <ol class="tutorial-steps">
+                  <li>Зайди в настройки Minecraft → Наборы ресурсов</li>
+                  <li>Нажми «Открыть папку с наборами»</li>
+                  <li>Перенеси <code>.zip</code> архив в открывшуюся папку</li>
+                </ol>
+              </div>
+
+              <div class="tutorial-card">
+                <h3 class="tutorial-title">Что делать, если софт крашится?</h3>
+                <ol class="tutorial-steps">
+                  <li>Убедись, что используешь правильную версию Java (обычно Java 17/21)</li>
+                  <li>Удали старые конфиги софта и перезапусти игру</li>
+                  <li>Выдели больше RAM в лаунчере (от 4 до 6 ГБ)</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== БЛОК FAQ ===== -->
+          <div class="faq-section reveal">
+            <div class="tutorials-header">
+              <div class="eyebrow"><span></span> Ответы на вопросы</div>
+              <h2 class="section-title"><span class="gradient-text">Часто задаваемые вопросы</span></h2>
+            </div>
+
+            <div class="faq-grid">
+              <div class="faq-card">
+                <h3>Безопасно ли скачивать файлы?</h3>
+                <p>Все читы, конфиги и ресурспаки перед выгрузкой проходят проверку. Мы публикуем только стабильные и рабочие билды.</p>
+              </div>
+              <div class="faq-card">
+                <h3>Как часто обновляется каталог?</h3>
+                <p>Мы добавляем новые кряки, актуальные версии клиентов и конфиги сразу же по мере их выхода или обновления античитов.</p>
+              </div>
+              <div class="faq-card">
+                <h3>Что делать, если не работает ссылка на скачивание?</h3>
+                <p>Если возникли проблемы с загрузкой или софт временно недоступен, напиши в наш официальный Telegram-канал для быстрой замены файла.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -654,7 +846,6 @@
   </nav>
 
   <script>
-    // ----- ДАННЫЕ -----
     const PRODUCTS = [
       {
         name: "WILD",
@@ -680,7 +871,7 @@
         version: "1.21.4",
         type: "Кряк",
         badge: "Рок-звезда арены: ослепляет стилем, оглушает ударами.",
-        description: "Сочный визуал, который приковывает взгляды, и мощный PvP-функционал, не оставляющий соперникам шансов. Твой главный перфоманс в игре, но не силен в обходах холиворлд.",
+        description: "Сочный визуал, который приковывает взгляды, и мощный PvP-функционал, не оставляющий соперникам шансов.",
         download: "https://workupload.com/file/ns7fqLUacjt"
       },
       {
@@ -688,18 +879,17 @@
         image: "images/zenith.jpg",
         version: "1.21.4",
         type: "Кряк",
-        badge: "Зенит: Космический FPS и визуалы, от которых текут слёзы.",
-        description: "Идеальный баланс для разгона FunTime. Код от DeepSeek, сливы на PasterEnd, но выдаёт такой фреймрейт и визуал, что админы от зависти плачут.",
+        badge: "Зенит: Космический FPS и визуалы.",
+        description: "Идеальный баланс для разгона FunTime. Выдаёт высокий фреймрейт и визуал.",
         download: "https://workupload.com/file/huuTfJr4Dz8"
       },
-
       {
         name: "LUXE",
         image: "images/luxe.jpg",
         version: "1.21.11",
         type: "Оригинал",
         badge: "Дорогой стиль без единого рубля.",
-        description: "Простой, стильный и абсолютно бесплатный. Без громких понтов и перегруженных обходов — только идеальный эстетичный клиент, в котором приятно находиться каждый день.",
+        description: "Простой, стильный и абсолютно бесплатный клиент.",
         download: "https://workupload.com/file/xRfMNFCwXFT"
       },
       {
@@ -707,8 +897,8 @@
         image: "images/nurik.jpg",
         version: "1.21.11",
         type: "Кряк",
-        badge: "Нурсултан пал. Сказки про «лучшую защиту» окончены.",
-        description: "Делать обнову с 1.16 на 1.21 больше полугода, провалить продажи и отлететь в кряк — это надо уметь. Зато в сурсах остались красивый GUI, сочные визуалы и неплохая киллаура.",
+        badge: "Красивый GUI и мощные визуалы.",
+        description: "Красивый GUI, сочные визуалы и отличная киллаура.",
         download: "https://workupload.com/file/eWzQrUnZe2x"
       },
       {
@@ -716,8 +906,8 @@
         image: "images/velka.jpg",
         version: "1.21.4",
         type: "Кряк",
-        badge: "VELKA — лучший PvE-клиент, который не сберегла защита.",
-        description: "1ККК с нуля всего за один час. Полная автоматизация: AutoBuy, AutoWarden, AutoEnd и AppleFarm для легчайшего баланса.",
+        badge: "VELKA — отличный PvE-клиент.",
+        description: "Автоматизация: AutoBuy, AutoWarden, AutoEnd и AppleFarm.",
         download: "https://workupload.com/file/ZqydgeUMZAM"
       },
       {
@@ -725,8 +915,8 @@
         image: "images/wexside.jpg",
         version: "1.21.11",
         type: "Кряк",
-        badge: "Чистый PvP-убийца без контрактов и защиты.",
-        description: "Поссорился с Флюгером, лишился «лучшей» защиты за 48 часов, но остался абсолютным топом для дуэлей. Скромный визуал, zero PvE, но бешеный урон по игрокам.",
+        badge: "Чистый PvP-убийца.",
+        description: "Отличный вариант для дуэлей с мощным уроном.",
         download: "https://workupload.com/file/tnVYyxQfCH6"
       },
       {
@@ -734,8 +924,8 @@
         image: "images/exp.jpg",
         version: "1.21.11",
         type: "Кряк",
-        badge: "Премиум-класс, который стоит каждого рубля.",
-        description: "Топовый софт без компромиссов. Мощнейшая киллаура, сочнейшие визуалы и базовый функционал для фарма — всё, за что любят настоящий дорогой продукт.",
+        badge: "Премиум-класс.",
+        description: "Мощная киллаура, отличные визуалы и удобный фарм.",
         download: "https://workupload.com/file/2GChgL94YmE"
       },
       {
@@ -744,7 +934,7 @@
         version: "1.21.4",
         type: "Кряк",
         badge: "Приятен для глаз, смертоносен в бою.",
-        description: "Клиент с идеальным дизайном и сочной картинкой, за которой скрывается беспощадная киллаура. Эстетика и мощь в одном флаконе.",
+        description: "Клиент с отличным дизайном и сочной картинкой.",
         download: "https://workupload.com/file/XfsmjjdgjLa"
       },
       {
@@ -752,8 +942,8 @@
         image: "images/arbuz.jpg",
         version: "1.21.4",
         type: "Кряк",
-        badge: "Сочный визуал, смертоносный урон.",
-        description: "Плотная, отточенная киллаура для полного разгрома соперников и весьма неплохой PvE-функционал для комфортного фарма.",
+        badge: "Сочный визуал.",
+        description: "Отточенная киллаура и полезный PvE-функционал.",
         download: "https://workupload.com/file/J7JFtmEeLvd"
       },
       {
@@ -761,8 +951,8 @@
         image: "images/releon.jpg",
         version: "1.21.4",
         type: "Оригинал",
-        badge: "Рокстар на халяву, но без бесячих багов.",
-        description: "Взяли сурсы RockStar, пофиксили вылеты, перебрали дизайн и завезли свои PvE-фичи. Бесплатная альтернатива со своим стилем и нормальными визуалами.",
+        badge: "Стабильная работа.",
+        description: "Бесплатная альтернатива со своим стилем.",
         download: "https://workupload.com/file/J7JFtmEeLvd"
       },
       {
@@ -770,8 +960,8 @@
         image: "images/pulse.jpg",
         version: "1.21.11",
         type: "Кряк",
-        badge: "Легальный чит под фантайм и другие сервера",
-        description: "Взяли визуалы, добавили чит функции, разрешили на фантайм. Пионер, что ты курил?",
+        badge: "Удобный клиент.",
+        description: "Сочетание визуала и функций.",
         download: "https://workupload.com/file/3HYnuPQGVCS"
       },
       {
@@ -779,8 +969,8 @@
         image: "images/rv.jpg",
         version: "1.16.5",
         type: "Кряк",
-        badge: "Легальный чит под риливорлд и другие сервера",
-        description: "Взяли визуалы, добавили чит функции, разрешили на фантайм. Домер, что ты курил?",
+        badge: "Классика 1.16.5.",
+        description: "Проверенная временем сборка.",
         download: "https://workupload.com/file/KE4jDmJFM4t"
       }
     ];
@@ -790,28 +980,28 @@
         name: "Конфиг Флюгера на Delta Client",
         image: "images/fluga.jpg",
         version: "1.21.4",
-        description: "Конфиг ютубера, который по слухам «бустит», не стоит ли проверить?",
+        description: "Конфиг ютубера для Delta Client.",
         download: "https://workupload.com/file/mFtA7J6bE8u"
       },
       {
-        name: "Конфиг Bro9I для Wild, Nursultan, Wexside Client",
+        name: "Конфиг Bro9I для Wild, Nursultan, Wexside",
         image: "images/bro9i.jpg",
         version: "1.21.4; 1.16.5; 1.21.11",
-        description: "Официальный конфиг, купленый с официального фанпея брои",
+        description: "Официальный конфиг.",
         download: "https://workupload.com/archive/QMSVEcFbGC"
       },
       {
-        name: "Конфиг для сервера SpookyT!me под Luxe Client 1.21.11",
+        name: "Конфиг для SpookyT!me под Luxe Client",
         image: "images/luxe.jpg",
         version: "1.21.11",
-        description: "Конфиг от создателя Luxe Client",
+        description: "Конфиг от создателя Luxe Client.",
         download: "https://workupload.com/file/P976SdjfBWP"
       },
       {
         name: "FunT1me конфиг на Delta Client",
         image: "images/cl.jpg",
         version: "1.21.11",
-        description: "Конфиг от владельца тгк «CheatsLaboratory под Delta Client»",
+        description: "Конфиг от CheatsLaboratory под Delta Client.",
         download: "https://workupload.com/file/kyXZ3qmvtka"
       }
     ];
@@ -821,54 +1011,46 @@
         name: "LEGENDS NEVER DIE V2",
         image: "images/pack1.jpg",
         version: "1.21.x",
-        description: "Серый, мрачный ресурспак",
+        description: "Серый, мрачный ресурспак.",
         download: "https://workupload.com/file/9zL5Frq6Ac2"
       },
       {
         name: "PVP RESOURCEPACK N1",
         image: "images/pack2.jpg",
         version: "1.21.x",
-        description: "Безымянный ресурспак, который тоже может попасть в сердце",
+        description: "Отличный PvP ресурспак.",
         download: "https://workupload.com/file/E2Q4SxHcQ3J"
       },
       {
         name: "DIE FOR THIS",
         image: "images/pack3.jpg",
         version: "1.21.x",
-        description: "Прекрасный фиолетовый ресурспак для ценителей пвп",
+        description: "Прекрасный фиолетовый ресурспак.",
         download: "https://workupload.com/file/HgUxpDQUN3u"
       },
       {
         name: "BRIDGE TO DEPRESSION",
         image: "images/pack4.jpg",
         version: "1.21.x",
-        description: "Официальный ресурспак ютубера Броя (Bro9I), проверено временем с 1.16",
+        description: "Официальный ресурспак Bro9I.",
         download: "https://workupload.com/archive/wfUx64RMRq"
       },
       {
         name: "PINK RESOURCEPACK",
         image: "images/pack5.jpg",
-        version: "1.21.x x 1.16.5",
-        description: "Розовый, но зловещий ресурспак, который не оставит вас без кила.",
+        version: "1.21.x / 1.16.5",
+        description: "Розовый ресурспак.",
         download: "https://workupload.com/file/3MgkMY8Adqk"
       },
       {
         name: "BURGUNDY RESOURCEPACK",
         image: "images/pack6.jpg",
-        version: "1.21.x x 1.16.5",
-        description: "Темный, приятный на глаз ресурспак",
+        version: "1.21.x / 1.16.5",
+        description: "Тёмный, приятный глазу ресурспак.",
         download: "https://workupload.com/file/JxxnMfzVKtS"
-      },
-      {
-        name: "@ofvkopz",
-        image: "images/ofvkopz.jpg",
-        version: "обмен",
-        description: "ХОЧЕТ ОБМЕНЯТЬ СОНИ ХПЕРИА НА ДИЛДАКИ",
-        download: "#"
-      },
+      }
     ];
 
-    // ----- РЕНДЕР -----
     function escapeHTML(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -923,7 +1105,6 @@
     renderSimple(CONFIGS, "configs-list");
     renderSimple(PACKS, "packs-list");
 
-    // ----- НАВИГАЦИЯ -----
     const TOTAL_PAGES = 4;
     let currentPage = 0;
     const pagesContainer = document.getElementById("pages");
@@ -942,11 +1123,9 @@
         btn.classList.toggle("active", i === currentPage);
       });
 
-      // прокрутка вверх
       pageElements[currentPage].scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // колесо мыши
     let wheelLock = false;
     window.addEventListener("wheel", (e) => {
       if (Math.abs(e.deltaY) < 12 || wheelLock) return;
@@ -955,7 +1134,6 @@
       setTimeout(() => wheelLock = false, 850);
     }, { passive: true });
 
-    // тач-свайп
     let touchStartX = 0, touchStartY = 0;
     window.addEventListener("touchstart", (e) => {
       touchStartX = e.changedTouches[0].clientX;
@@ -970,7 +1148,6 @@
       }
     }, { passive: true });
 
-    // клавиши
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight" || e.key === "PageDown") goToPage(currentPage + 1);
       if (e.key === "ArrowLeft" || e.key === "PageUp") goToPage(currentPage - 1);
